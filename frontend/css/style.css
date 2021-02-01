@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Définition des variables couleur */
+  --primary: #f3e9f1;
+  --secondary: #a62cd7;
+  --tertiary: #f9c9a8;
+}
+
+.top_page {
+  padding-bottom: 2em;
+  background-color: var(--primary);
+  box-shadow: 0.8em 0.8em 0.8em var(--secondary);
+}
+
+.navig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  width: 20em;
+}
+
+.basket_link {
+  text-decoration: none;
+  color: black;
+}
+.basket_link p {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.basket_icon {
+  font-size: 2em;
+  padding-right: 0.5em;
+}
+
+.btn-panier {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 1em 1em 1em;
+  border-radius: 2em 2em 2em 2em;
+  border: 2px solid var(--tertiary);
+  box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+}
