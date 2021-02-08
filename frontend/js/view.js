@@ -21,18 +21,21 @@ const afficheProduit = (produit) => {
     let teddiePrice = document.createElement("span");
     teddiePrice.setAttribute("class", "teddie_price");
 
+    let linkDetailsProduits = document.createElement("button");
+    linkDetailsProduits.setAttribute("class", "teddie_details");
+
     // implémenter dans le html
     teddiesList.appendChild(teddie);
     teddie.appendChild(linkProduits);
     linkProduits.appendChild(teddieName);
     linkProduits.appendChild(teddiePicture);
     linkProduits.appendChild(teddiePrice);
+    linkProduits.appendChild(linkDetailsProduits);
 
     // appel des produits dans la structure
     teddieName.textContent = produit.name;
-    teddiePrice.textContent = "Prix : " + produit.price / 100 + ",00" + " €";
-    
-
+    teddiePrice.innerHTML = "<h3>Prix : </h3>" + produit.price / 100 + ",00" + " €";
+    linkDetailsProduits.innerHTML = "<p>Détails</p>";
 
 }
 
@@ -58,14 +61,33 @@ const ficheProduit = (myTeddie) => {
     productText.setAttribute("class", "product_text");
     let productLabelColor = document.createElement("label");
     productLabelColor.setAttribute("class", "product_colors");
-    productLabelColor.setAttribute("for", "color-select");
+    productLabelColor.setAttribute("for", "select_color");
     let productSelectColor = document.createElement("select");
     productSelectColor.setAttribute("id", "select_color");
+
+    let productBoxQuantity = document.createElement("div");
+    productBoxQuantity.setAttribute("class", "box_quantity");
     let productLabelQuantity = document.createElement("label");
     productLabelQuantity.setAttribute("class", "product_quantity");
     productLabelQuantity.setAttribute("for", "quantity-select");
-    let productSelectQuantity = document.createElement("select");
-    productSelectQuantity.setAttribute("id", "select_quantity");
+    let productQuantityMinus = document.createElement("input");
+    productQuantityMinus.setAttribute("id", "minus");
+    productQuantityMinus.setAttribute("type", "button");
+    productQuantityMinus.setAttribute("value", "-");
+    let productQuantityNumber = document.createElement("input");
+    productQuantityNumber.setAttribute("id", "quantity-select");
+    productQuantityNumber.setAttribute("type", "number");
+    productQuantityNumber.setAttribute("min", 0);
+    productQuantityNumber.setAttribute("max", 999999);
+    //productQuantityNumber.setAttribute("step", );
+    productQuantityNumber.setAttribute("value", 1);
+    //productQuantityNumber.setAttribute("placeholder inputmode", "numeric");
+    let productQuantityPlus = document.createElement("input");
+    productQuantityPlus.setAttribute("id", "plus");
+    productQuantityPlus.setAttribute("type", "button");
+    productQuantityPlus.setAttribute("value", "+");
+
+
     let productPrice = document.createElement("span");
     productPrice.setAttribute("class", "product_price");
     let productPutBasket = document.createElement("button");
@@ -81,20 +103,24 @@ const ficheProduit = (myTeddie) => {
     productBoxText.appendChild(productText);
     productBoxText.appendChild(productLabelColor);
     productBoxText.appendChild(productSelectColor);
-    productBoxText.appendChild(productLabelQuantity);
-    productBoxText.appendChild(productSelectQuantity);
+    productBoxText.appendChild(productBoxQuantity);
+    productBoxQuantity.appendChild(productLabelQuantity);
+    productBoxQuantity.appendChild(productQuantityMinus);
+    productBoxQuantity.appendChild(productQuantityNumber);
+    productBoxQuantity.appendChild(productQuantityPlus);
+    //productBoxText.appendChild(productSelectQuantity);
     productBoxText.appendChild(productPrice);
     productBoxText.appendChild(productPutBasket);
 
     // appel des éléments dans la structure
     productName.textContent = myTeddie.name;
-    productText.textContent = myTeddie.description;
-    productLabelColor.textContent = "Couleurs disponibles : ";
+    productText.innerHTML = "<h3>Description :</h3>" + myTeddie.description;
+    productLabelColor.innerHTML = "<h3>Couleurs disponibles :</h3>";
     productSelectColor.textContent = myTeddie.colors;
-    productLabelQuantity.textContent = "Quantité : ";
+    productLabelQuantity.innerHTML = "<h3>Quantité :</h3>";
     //productSelectColor.textContent = myTeddie.
-    productPrice.textContent = myTeddie.price;
-    productPutBasket.textContent = "Ajouter au panier";
+    productPrice.innerHTML = "<h3>Prix :</h3>" + myTeddie.price;
+    productPutBasket.innerHTML = "<p>Ajouter au panier</p>";
     
     myTeddie.colors.forEach((colors) => {
         let colorChoice = document.createElement("option");
@@ -103,6 +129,17 @@ const ficheProduit = (myTeddie) => {
             .appendChild(colorChoice).innerHTML = colors;
     });
 
+    // + et - pour les inputs quantité
+    const productPlus = document.getElementById("plus");
+    productPlus.addEventListener("click", function(){
+        productQuantityNumber.value ++ ;
+    });
+
+    const productMinus = document.getElementById("minus");
+    productMinus.addEventListener("click", function(){
+        productQuantityNumber.value -- ;
+    });
 }
 
-let quantiter = [...Array(25).keys()].map(i => i + 1); 
+
+//let quantiter = [...Array(25).keys()].map(i => i + 1); 
