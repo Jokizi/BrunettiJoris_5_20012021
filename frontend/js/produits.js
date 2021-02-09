@@ -10,16 +10,15 @@ const myTeddie = () => {
 
 myTeddie()*/
 
-
-// récupération d'un teddie via son 'id' sur le serveur
+/* RÉCUPÉRATION D'UN TEDDIE VIA SON "id" SUR LE SERVEUR
+======================================================*/
 const getTeddie = () => {
-    //const id = location.search.substring(4);
     let id = new URLSearchParams(window.location.search)
     id = id.get('id')
 
     const oneTeddie = request(`http://localhost:3000/api/teddies/${id}`);
     oneTeddie.then((myTeddie) => {
-    ficheProduit(myTeddie); // nom de la fonction dans le view.js
+    ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
 })
 }
 getTeddie()

@@ -11,6 +11,8 @@ html {
   --tertiary: #f9c9a8;
 }
 
+/* <HEADER>
+==========*/
 .top_page {
   padding-bottom: 2em;
   background-color: var(--primary);
@@ -64,3 +66,14 @@ html {
     var(--primary)
   );
 }
+/* </HEADER>
+===========*/
+
+/* <FOOTER>
+==========*/
+.bottom_page {
+  background-color: var(--primary);
+  height: 10em;
+}
+/* </FOOTER>
+========== */

@@ -1,12 +1,14 @@
+/* AFFICHER TOUS LES PRODUITS SUR 'index.html'
+=============================================*/
 const afficheProduit = (produit) => {
     //console.log(produit.name);
     //console.log(produit.imageUrl);
     //console.log(produit.description);
 
-    // lien avec index.html
+    /* Lien avec index.html */
     let teddiesList = document.getElementById("teddies_list");
 
-    // créer l'architecture html
+    /* Créer l'architecture html */
     let teddie = document.createElement("article");
     teddie.setAttribute("class", "teddie");
 
@@ -24,7 +26,7 @@ const afficheProduit = (produit) => {
     let linkDetailsProduits = document.createElement("button");
     linkDetailsProduits.setAttribute("class", "teddie_details");
 
-    // implémenter dans le html
+    /* Implémenter dans le html */
     teddiesList.appendChild(teddie);
     teddie.appendChild(linkProduits);
     linkProduits.appendChild(teddieName);
@@ -32,18 +34,20 @@ const afficheProduit = (produit) => {
     linkProduits.appendChild(teddiePrice);
     linkProduits.appendChild(linkDetailsProduits);
 
-    // appel des produits dans la structure
+    /* Appel des produits dans la structure */
     teddieName.textContent = produit.name;
     teddiePrice.innerHTML = "<h3>Prix : </h3>" + produit.price / 100 + ",00" + " €";
     linkDetailsProduits.innerHTML = "<p>Détails</p>";
 
 }
 
+/* AFFICHER UN PRODUIT SUR 'produit.html' GRÂCE À SON "id"
+=========================================================*/
 const ficheProduit = (myTeddie) => {
-    // lien avec produit.html
+    /* Lien avec produit.html */
     let teddieFile = document.getElementById("teddie_file");
     
-    // créer l'architecture html
+    /* Créer l'architecture html */
     let productFile = document.createElement("article");
     productFile.setAttribute("class", "product_file");
     let productName = document.createElement("h2");
@@ -76,10 +80,10 @@ const ficheProduit = (myTeddie) => {
     productQuantityMinus.setAttribute("value", "-");
     let productQuantityNumber = document.createElement("input");
     productQuantityNumber.setAttribute("id", "quantity-select");
-    productQuantityNumber.setAttribute("type", "number");
-    productQuantityNumber.setAttribute("min", 0);
-    productQuantityNumber.setAttribute("max", 999999);
-    //productQuantityNumber.setAttribute("step", );
+    //productQuantityNumber.setAttribute("type", "number");
+    //productQuantityNumber.setAttribute("min", 0);
+    //productQuantityNumber.setAttribute("max", 10);
+    //productQuantityNumber.setAttribute("step", 10);
     productQuantityNumber.setAttribute("value", 1);
     //productQuantityNumber.setAttribute("placeholder inputmode", "numeric");
     let productQuantityPlus = document.createElement("input");
@@ -94,7 +98,7 @@ const ficheProduit = (myTeddie) => {
     productPutBasket.setAttribute("class", "product_basket");
 
 
-    // implémenter dans le html
+    /* Implémenter dans le html */
     teddieFile.appendChild(productFile);
     productFile.appendChild(productName);
     productFile.appendChild(productBoxPicture);
@@ -112,7 +116,7 @@ const ficheProduit = (myTeddie) => {
     productBoxText.appendChild(productPrice);
     productBoxText.appendChild(productPutBasket);
 
-    // appel des éléments dans la structure
+    /* Appel des éléments dans la structure */
     productName.textContent = myTeddie.name;
     productText.innerHTML = "<h3>Description :</h3>" + myTeddie.description;
     productLabelColor.innerHTML = "<h3>Couleurs disponibles :</h3>";
@@ -122,6 +126,8 @@ const ficheProduit = (myTeddie) => {
     productPrice.innerHTML = "<h3>Prix :</h3>" + myTeddie.price;
     productPutBasket.innerHTML = "<p>Ajouter au panier</p>";
     
+    /* AFFICHER LES COULEURS QUI CORRESPONDENT AUX PRODUITS
+    ------------------------------------------------------*/
     myTeddie.colors.forEach((colors) => {
         let colorChoice = document.createElement("option");
         document
@@ -129,17 +135,17 @@ const ficheProduit = (myTeddie) => {
             .appendChild(colorChoice).innerHTML = colors;
     });
 
-    // + et - pour les inputs quantité
+    /* + ET - POUR LES INPUTS QUANTITÉ (Min: 0; Max: 100;)
+    -----------------------------------------------------*/
     const productPlus = document.getElementById("plus");
     productPlus.addEventListener("click", function(){
+        if (productQuantityNumber.value < 100)
         productQuantityNumber.value ++ ;
     });
 
     const productMinus = document.getElementById("minus");
     productMinus.addEventListener("click", function(){
-        productQuantityNumber.value -- ;
+        if (productQuantityNumber.value > 0) 
+            productQuantityNumber.value -- ;
     });
 }
-
-
-//let quantiter = [...Array(25).keys()].map(i => i + 1); 

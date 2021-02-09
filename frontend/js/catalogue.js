@@ -7,3 +7,7 @@ const myFunction = () => {
     })
 }
 myFunction();
+
+console.log('------------------------------------');
+console.log(teddie);
+console.log('------------------------------------');
