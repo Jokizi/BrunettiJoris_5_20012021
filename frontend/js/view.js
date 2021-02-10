@@ -149,3 +149,5 @@ const ficheProduit = (myTeddie) => {
             productQuantityNumber.value -- ;
     });
 }
+
+

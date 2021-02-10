@@ -18,6 +18,9 @@ const getTeddie = () => {
 
     const oneTeddie = request(`http://localhost:3000/api/teddies/${id}`);
     oneTeddie.then((myTeddie) => {
+        if(!myTeddie._id) { 
+            window.alert('Ce Produit Est Indisponible') /* message alert si id pas correct */
+        }
     ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
 })
 }

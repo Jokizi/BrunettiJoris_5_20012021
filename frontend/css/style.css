@@ -69,6 +69,100 @@ html {
 /* </HEADER>
 ===========*/
 
+/* index.html 
+++++++++++++*/
+.teddies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.teddie {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  height: 16em;
+  margin-bottom: 2em;
+  padding: 0.8%;
+  border: solid 2px black;
+  border-radius: 1em;
+}
+
+.teddie a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.teddie img {
+  object-fit: fill;
+  width: 100%;
+  height: 10em;
+  border-radius: 1em;
+  border: solid 2px black;
+}
+/* /index.html 
++++++++++++++*/
+
+/* produit.html
+++++++++++++++*/
+.file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product_file {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  height: 35em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 0.8%;
+  border: solid 2px black;
+  border-radius: 1em;
+}
+
+.box_picture img {
+  object-fit: fill;
+  width: 100%;
+  height: 12em;
+  border-radius: 1em;
+}
+
+.box_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* /produit.html
++++++++++++++++*/
+
 /* <FOOTER>
 ==========*/
 .bottom_page {
