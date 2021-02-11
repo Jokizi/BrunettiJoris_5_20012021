@@ -13,15 +13,18 @@ myTeddie()*/
 /* RÉCUPÉRATION D'UN TEDDIE VIA SON "id" SUR LE SERVEUR
 ======================================================*/
 const getTeddie = () => {
-    let id = new URLSearchParams(window.location.search)
-    id = id.get('id')
+  let id = new URLSearchParams(window.location.search);
+  id = id.get("id");
 
-    const oneTeddie = request(`http://localhost:3000/api/teddies/${id}`);
-    oneTeddie.then((myTeddie) => {
-        if(!myTeddie._id) { 
-            window.alert('Ce Produit Est Indisponible') /* message alert si id pas correct */
-        }
-    ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
-})
-}
-getTeddie()
+  const oneTeddie = request(`http://localhost:3000/api/teddies/${id}`);
+  oneTeddie.then((myTeddie) => {
+    if (!myTeddie._id) {
+      alert(
+        "Ce Produit Est Indisponible"
+      ); /* message alert si id pas correct */
+    } else {
+      ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
+    }
+  });
+};
+getTeddie();

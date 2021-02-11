@@ -17,6 +17,7 @@ html {
   padding-bottom: 2em;
   background-color: var(--primary);
   box-shadow: 0.8em 0.8em 0.8em var(--secondary);
+  width: 100%;
 }
 
 .navig {
@@ -93,7 +94,7 @@ html {
     var(--tertiary),
     var(--primary)
   );
-  height: 16em;
+  height: 18em;
   margin-bottom: 2em;
   padding: 0.8%;
   border: solid 2px black;
