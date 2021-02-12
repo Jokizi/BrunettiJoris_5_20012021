@@ -1,3 +1,8 @@
+const afficheErrorServer = () => {
+  //alert("Serveur indisponible, site en maintenance");
+  window.location.replace("loading.html");
+};
+
 /* AFFICHER TOUS LES PRODUITS SUR 'index.html'
 =============================================*/
 const afficheProduit = (produit) => {
@@ -145,8 +150,4 @@ const ficheProduit = (myTeddie) => {
   productMinus.addEventListener("click", function () {
     if (productQuantityNumber.value > 1) productQuantityNumber.value--;
   });
-};
-
-const afficheErrorServer = () => {
-  alert("Serveur indisponible, site en maintenance");
 };

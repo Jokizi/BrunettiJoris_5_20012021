@@ -18,7 +18,9 @@ const getTeddie = () => {
 
   const oneTeddie = request(`http://localhost:3000/api/teddies/${id}`);
   oneTeddie.then((myTeddie) => {
-    if (!myTeddie._id) {
+    if (myTeddie === "server down") {
+      afficheErrorServer();
+    } else if (!myTeddie._id) {
       alert(
         "Ce Produit Est Indisponible"
       ); /* message alert si id pas correct */
