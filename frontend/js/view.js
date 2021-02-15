@@ -1,6 +1,19 @@
+/* AFFICHER ERREUR SERVEUR SUR LES '.html'
+=========================================*/
 const afficheErrorServer = () => {
-  //alert("Serveur indisponible, site en maintenance");
+  alert("Serveur indisponible, site en maintenance");
   window.location.replace("loading.html");
+};
+
+/* FORMATER LES PRIX DANS LA DEVISE QUE L'ON SOUHAITE
+====================================================*/
+const numberFormatter = (teddiePrice) => {
+  let formate = teddiePrice / 100;
+  formate = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(formate);
+  return formate;
 };
 
 /* AFFICHER TOUS LES PRODUITS SUR 'index.html'
@@ -39,10 +52,9 @@ const afficheProduit = (produit) => {
   linkProduits.appendChild(teddiePrice);
   linkProduits.appendChild(linkDetailsProduits);
 
-  /* Appel des produits dans la structure */
+  /* Appel des éléments dans la structure */
   teddieName.textContent = produit.name;
-  teddiePrice.innerHTML =
-    "<h3>Prix : </h3>" + produit.price / 100 + ",00" + " €";
+  teddiePrice.innerHTML = "<h3>Prix : </h3>" + numberFormatter(produit.price);
   linkDetailsProduits.innerHTML = "<p>Détails</p>";
 };
 
@@ -127,7 +139,7 @@ const ficheProduit = (myTeddie) => {
   productSelectColor.textContent = myTeddie.colors;
   productLabelQuantity.innerHTML = "<h3>Quantité :</h3>";
   //productSelectColor.textContent = myTeddie.
-  productPrice.innerHTML = "<h3>Prix :</h3>" + myTeddie.price;
+  productPrice.innerHTML = "<h3>Prix :</h3>" + numberFormatter(myTeddie.price);
   productPutBasket.innerHTML = "<p>Ajouter au panier</p>";
 
   /* AFFICHER LES COULEURS QUI CORRESPONDENT AUX PRODUITS
