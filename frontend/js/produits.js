@@ -25,6 +25,7 @@ const getTeddie = () => {
         "Ce Produit Est Indisponible"
       ); /* message alert si id pas correct */
     } else {
+      load(); /* appel fonction load dans le view.js */
       ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
     }
   });

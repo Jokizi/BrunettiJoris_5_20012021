@@ -70,15 +70,39 @@ html {
 /* </HEADER>
 ===========*/
 
-/* loading.html
-++++++++++++++*/
+/* loading spinner
++++++++++++++++++*/
 .loading_spinner {
   background-color: var(--primary);
-  padding-top: 5em;
-}
-.loading_title {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hidden {
+  animation: disparition 2s;
+  animation-fill-mode: forwards;
+}
+@-webkit-keyframes disparition {
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+}
+
+@keyframes disparition {
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
 }
 
 .loader {

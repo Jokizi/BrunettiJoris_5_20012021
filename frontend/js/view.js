@@ -2,7 +2,14 @@
 =========================================*/
 const afficheErrorServer = () => {
   alert("Serveur indisponible, site en maintenance");
-  window.location.replace("loading.html");
+  /*document.getElementByClass("loading_spinner");*/
+};
+
+/* RAJOUTER LA CLASSE "hidden" QUI COUPE L'AFFICHAGE DU LOADING SPINNER
+======================================================================*/
+const load = () => {
+  let spinner = document.querySelector(".loading_spinner");
+  spinner.className += " hidden"; /* rajoute la classe à l'élément */
 };
 
 /* FORMATER LES PRIX DANS LA DEVISE QUE L'ON SOUHAITE
@@ -113,6 +120,12 @@ const ficheProduit = (myTeddie) => {
   productPrice.setAttribute("class", "product_price");
   let productPutBasket = document.createElement("button");
   productPutBasket.setAttribute("class", "product_basket");
+  productPutBasket.setAttribute("id", "ajout");
+  productPutBasket.addEventListener("click", () => {
+    console.log("------------------------------------");
+    console.log("ajouter toto");
+    console.log("------------------------------------");
+  });
 
   /* Implémenter dans le html */
   teddieFile.appendChild(productFile);
@@ -138,7 +151,6 @@ const ficheProduit = (myTeddie) => {
   productLabelColor.innerHTML = "<h3>Couleurs disponibles :</h3>";
   productSelectColor.textContent = myTeddie.colors;
   productLabelQuantity.innerHTML = "<h3>Quantité :</h3>";
-  //productSelectColor.textContent = myTeddie.
   productPrice.innerHTML = "<h3>Prix :</h3>" + numberFormatter(myTeddie.price);
   productPutBasket.innerHTML = "<p>Ajouter au panier</p>";
 
