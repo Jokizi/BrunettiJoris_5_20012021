@@ -92,7 +92,7 @@ html {
 @-webkit-keyframes disparition {
   100% {
     opacity: 0;
-    display: none;
+    /*display: none;*/
     z-index: -1;
   }
 }
@@ -100,7 +100,7 @@ html {
 @keyframes disparition {
   100% {
     opacity: 0;
-    display: none;
+    /*display: none;*/
     z-index: -1;
   }
 }
@@ -309,3 +309,9 @@ html {
 }
 /* </FOOTER>
 ========== */
+
+/* page 'panier.html' photos */
+.picture_basket {
+  width: 3em;
+  height: 3em;
+}

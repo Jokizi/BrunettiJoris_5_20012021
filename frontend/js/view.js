@@ -2,7 +2,6 @@
 =========================================*/
 const afficheErrorServer = () => {
   alert("Serveur indisponible, site en maintenance");
-  /*document.getElementByClass("loading_spinner");*/
 };
 
 /* RAJOUTER LA CLASSE "hidden" QUI COUPE L'AFFICHAGE DU LOADING SPINNER
@@ -125,6 +124,7 @@ const ficheProduit = (myTeddie) => {
     console.log("------------------------------------");
     console.log("ajouter toto");
     console.log("------------------------------------");
+    sendLocal(myTeddie, productSelectColor);
   });
 
   /* Implémenter dans le html */
@@ -152,7 +152,7 @@ const ficheProduit = (myTeddie) => {
   productSelectColor.textContent = myTeddie.colors;
   productLabelQuantity.innerHTML = "<h3>Quantité :</h3>";
   productPrice.innerHTML = "<h3>Prix :</h3>" + numberFormatter(myTeddie.price);
-  productPutBasket.innerHTML = "<p>Ajouter au panier</p>";
+  productPutBasket.innerHTML = "Ajouter au panier";
 
   /* AFFICHER LES COULEURS QUI CORRESPONDENT AUX PRODUITS
     ------------------------------------------------------*/
@@ -174,4 +174,75 @@ const ficheProduit = (myTeddie) => {
   productMinus.addEventListener("click", function () {
     if (productQuantityNumber.value > 1) productQuantityNumber.value--;
   });
+};
+
+/* ENVOYER DANS LE LOCALSTORAGE LE PRODUIT SELECTIONNÉ
+-----------------------------------------------------*/
+const sendLocal = (myTeddie, productSelectColor) => {
+  // définir les data à récupérer
+  let newData = {
+    ref: myTeddie,
+    couleur: productSelectColor.value,
+  };
+
+  // si rien n'est affiché au début, affiche un array vide
+  if (localStorage.getItem("selection") == null) {
+    localStorage.setItem("selection", "[]");
+  }
+
+  // changer les anciennes data et les remplacer par les nouvelles
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  oldData.push(newData);
+
+  // sauvegarder les anciennes et les nouvelles data dans localstorage
+  localStorage.setItem("selection", JSON.stringify(oldData));
+};
+
+/* AFFICHER LE PANIER SUR 'panier.html' EN LIEN AVEC LOCALSTORAGE
+================================================================*/
+const panier = (pan, index) => {
+  /* Lien avec panier.html */
+  let basket = document.getElementById("array_basket");
+
+  /* Créer l'architecture html */
+  let arrayBody = document.createElement("tbody");
+
+  let lineBody = document.createElement("tr");
+
+  let elementPicture = document.createElement("td");
+  let picturePlace = document.createElement("img");
+  picturePlace.setAttribute("src", pan.ref.imageUrl);
+  picturePlace.setAttribute("class", "picture_basket");
+
+  let elementName = document.createElement("td");
+  let namePlace = document.createElement("h2");
+  namePlace.textContent = pan.ref.name;
+
+  let elementColor = document.createElement("td");
+  let colorPlace = document.createElement("span");
+
+  let elementPrice = document.createElement("td");
+  let pricePlace = document.createElement("span");
+
+  let elementRemove = document.createElement("td");
+  let removePlace = document.createElement("button");
+  removePlace.innerHTML = "Supprimer";
+
+  basket.appendChild(arrayBody);
+  arrayBody.appendChild(lineBody);
+
+  lineBody.appendChild(elementPicture);
+  elementPicture.appendChild(picturePlace);
+
+  lineBody.appendChild(elementName);
+  elementName.appendChild(namePlace);
+
+  lineBody.appendChild(elementColor);
+  elementColor.appendChild(colorPlace);
+
+  lineBody.appendChild(elementPrice);
+  elementPrice.appendChild(pricePlace);
+
+  lineBody.appendChild(elementRemove);
+  elementRemove.appendChild(removePlace);
 };
