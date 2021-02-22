@@ -4,5 +4,7 @@ const getData = () => {
     oldData.forEach((pan, index) => {
       panier(pan, index);
     });
+  howMuch();
+  totalBasket(); /* appel de la fonction prix total du panier */
 };
 getData();

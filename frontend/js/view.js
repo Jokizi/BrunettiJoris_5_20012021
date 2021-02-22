@@ -121,9 +121,6 @@ const ficheProduit = (myTeddie) => {
   productPutBasket.setAttribute("class", "product_basket");
   productPutBasket.setAttribute("id", "ajout");
   productPutBasket.addEventListener("click", () => {
-    console.log("------------------------------------");
-    console.log("ajouter toto");
-    console.log("------------------------------------");
     sendLocal(myTeddie, productSelectColor);
   });
 
@@ -208,6 +205,7 @@ const panier = (pan, index) => {
   let arrayBody = document.createElement("tbody");
 
   let lineBody = document.createElement("tr");
+  lineBody.setAttribute("id", index);
 
   let elementPicture = document.createElement("td");
   let picturePlace = document.createElement("img");
@@ -220,14 +218,23 @@ const panier = (pan, index) => {
 
   let elementColor = document.createElement("td");
   let colorPlace = document.createElement("span");
+  colorPlace.textContent = pan.couleur;
 
   let elementPrice = document.createElement("td");
   let pricePlace = document.createElement("span");
+  pricePlace.textContent = numberFormatter(pan.ref.price);
 
   let elementRemove = document.createElement("td");
   let removePlace = document.createElement("button");
   removePlace.innerHTML = "Supprimer";
+  removePlace.addEventListener("click", (e) => {
+    deleteOneProduct(index);
+    let productLine = document.getElementById(index);
+    productLine.parentNode.removeChild(productLine);
+    totalBasket();
+  });
 
+  /* Implémenter dans le html */
   basket.appendChild(arrayBody);
   arrayBody.appendChild(lineBody);
 
@@ -245,4 +252,44 @@ const panier = (pan, index) => {
 
   lineBody.appendChild(elementRemove);
   elementRemove.appendChild(removePlace);
+};
+
+const deleteOneProduct = (i) => {
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  oldData.splice(i, 1);
+  localStorage.clear();
+  localStorage.setItem("selection", JSON.stringify(oldData));
+};
+
+/* CREER LA DIV QUI ACCUEIL LE PRIX TOTAL DU PANIER
+==================================================*/
+const howMuch = () => {
+  let totalPrice = document.getElementById("your_basket");
+
+  let divTotalPrice = document.createElement("div");
+  divTotalPrice.setAttribute("id", "div_total");
+
+  let titleTotalPrice = document.createElement("span");
+  titleTotalPrice.textContent = "Total: ";
+
+  let numberTotalPrice = document.createElement("span");
+  numberTotalPrice.setAttribute("id", "result_price");
+
+  totalPrice.appendChild(divTotalPrice);
+  totalPrice.appendChild(titleTotalPrice);
+  totalPrice.appendChild(numberTotalPrice);
+};
+
+/* CALCULER LA PRIX TOTAL DU PANIER 
+==================================*/
+const totalBasket = () => {
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  let sommeTotal = 0;
+  let result = document.getElementById("result_price");
+
+  oldData?.length &&
+    oldData.forEach((pan) => {
+      sommeTotal += pan.ref.price;
+    });
+  result.innerHTML = numberFormatter(sommeTotal);
 };
