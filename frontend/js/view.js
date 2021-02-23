@@ -1,18 +1,18 @@
 /* AFFICHER ERREUR SERVEUR SUR LES '.html'
-=========================================*/
+-----------------------------------------*/
 const afficheErrorServer = () => {
   alert("Serveur indisponible, site en maintenance");
 };
 
 /* RAJOUTER LA CLASSE "hidden" QUI COUPE L'AFFICHAGE DU LOADING SPINNER
-======================================================================*/
+----------------------------------------------------------------------*/
 const load = () => {
   let spinner = document.querySelector(".loading_spinner");
   spinner.className += " hidden"; /* rajoute la classe à l'élément */
 };
 
 /* FORMATER LES PRIX DANS LA DEVISE QUE L'ON SOUHAITE
-====================================================*/
+----------------------------------------------------*/
 const numberFormatter = (teddiePrice) => {
   let formate = teddiePrice / 100;
   formate = new Intl.NumberFormat("fr-FR", {
@@ -122,6 +122,7 @@ const ficheProduit = (myTeddie) => {
   productPutBasket.setAttribute("id", "ajout");
   productPutBasket.addEventListener("click", () => {
     sendLocal(myTeddie, productSelectColor);
+    putNumberButton();
   });
 
   /* Implémenter dans le html */
@@ -161,7 +162,7 @@ const ficheProduit = (myTeddie) => {
   });
 
   /* + ET - POUR LES INPUTS QUANTITÉ (Min: 1; Max: 100;)
-    -----------------------------------------------------*/
+  -----------------------------------------------------*/
   const productPlus = document.getElementById("plus");
   productPlus.addEventListener("click", function () {
     if (productQuantityNumber.value < 100) productQuantityNumber.value++;
@@ -231,7 +232,9 @@ const panier = (pan, index) => {
     deleteOneProduct(index);
     let productLine = document.getElementById(index);
     productLine.parentNode.removeChild(productLine);
-    totalBasket();
+    totalBasket(); /* affiche la soustraction prix du produit supprimé */
+    putNumberButton(); /* affiche le nombre de produits restant */
+    emptyBasket();
   });
 
   /* Implémenter dans le html */
@@ -254,10 +257,12 @@ const panier = (pan, index) => {
   elementRemove.appendChild(removePlace);
 };
 
-const deleteOneProduct = (i) => {
+/* SUPPRIMER UN PRODUIT DU PANIER
+--------------------------------*/
+const deleteOneProduct = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
-  oldData.splice(i, 1);
-  localStorage.clear();
+  oldData.splice(0, 1); /* supprime un élément du array à partir de l'index 0 */
+  /*localStorage.clear();*/
   localStorage.setItem("selection", JSON.stringify(oldData));
 };
 
@@ -280,8 +285,8 @@ const howMuch = () => {
   totalPrice.appendChild(numberTotalPrice);
 };
 
-/* CALCULER LA PRIX TOTAL DU PANIER 
-==================================*/
+/* CALCULER LE PRIX TOTAL DU PANIER 
+----------------------------------*/
 const totalBasket = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
   let sommeTotal = 0;
@@ -292,4 +297,26 @@ const totalBasket = () => {
       sommeTotal += pan.ref.price;
     });
   result.innerHTML = numberFormatter(sommeTotal);
+};
+
+/* ENVOIE LE NOMBRE DE PRODUITS AFFICHÉ DANS LE PANIER
+-----------------------------------------------------*/
+const putNumberButton = () => {
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  let numberButton = document.getElementById("number_button");
+  numberButton.innerHTML = oldData?.length ? oldData.length : 0;
+  /* affiche le 0 si le array vide du localstorage existe */
+};
+
+/* AFFICHER PANIER VIDE SI LOCALSTORAGE EST VIDE OU INEXISTANT */
+const emptyBasket = () => {
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  if (oldData?.length == 0 || oldData?.length == null) {
+    let mainBasket = document.getElementById("main_basket");
+    let articleBasket = document.getElementById("your_basket");
+    articleBasket.style.display = "none";
+    let titleEmptyBasket = document.createElement("h1");
+    titleEmptyBasket.textContent = "Votre panier est vide";
+    mainBasket.appendChild(titleEmptyBasket);
+  }
 };

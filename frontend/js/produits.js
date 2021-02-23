@@ -29,5 +29,6 @@ const getTeddie = () => {
       ficheProduit(myTeddie); /* nom de la fonction dans le view.js */
     }
   });
+  putNumberButton(); /* appel la foncion affiche nombre produit dans le bouton panier */
 };
 getTeddie();

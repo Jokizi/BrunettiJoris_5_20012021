@@ -1,3 +1,5 @@
+/* RÉCUPÈRE L'ENSEMBLE DES PRODUITS DE L'API:TEDDIES
+===================================================*/
 const myFunction = () => {
   const produits = request("http://localhost:3000/api/teddies");
 
@@ -11,5 +13,6 @@ const myFunction = () => {
       });
     }
   });
+  putNumberButton(); /* appel la foncion affiche nombre produit dans le bouton panier */
 };
 myFunction();
