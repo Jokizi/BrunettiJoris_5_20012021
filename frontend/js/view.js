@@ -228,13 +228,13 @@ const panier = (pan, index) => {
   let elementRemove = document.createElement("td");
   let removePlace = document.createElement("button");
   removePlace.innerHTML = "Supprimer";
-  removePlace.addEventListener("click", (e) => {
+  removePlace.addEventListener("click", () => {
     deleteOneProduct(index);
     let productLine = document.getElementById(index);
     productLine.parentNode.removeChild(productLine);
     totalBasket(); /* affiche la soustraction prix du produit supprimé */
     putNumberButton(); /* affiche le nombre de produits restant */
-    emptyBasket();
+    emptyBasket(); /* affiche le panier est vide si c'est le cas */
   });
 
   /* Implémenter dans le html */
@@ -259,15 +259,23 @@ const panier = (pan, index) => {
 
 /* SUPPRIMER UN PRODUIT DU PANIER
 --------------------------------*/
-const deleteOneProduct = () => {
+const deleteOneProduct = (index) => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
-  oldData.splice(0, 1); /* supprime un élément du array à partir de l'index 0 */
+  console.log("------------------------------------");
+  console.log(index, oldData);
+
+  oldData.splice(index, 1);
+
+  console.log(oldData);
+  console.log(
+    "------------------------------------"
+  ); /* supprime un élément du array à partir de l'index 0 */
   /*localStorage.clear();*/
   localStorage.setItem("selection", JSON.stringify(oldData));
 };
 
-/* CREER LA DIV QUI ACCUEIL LE PRIX TOTAL DU PANIER
-==================================================*/
+/* CREER LA DIV QUI ACCUEIL LE PRIX TOTAL DU PANIER ET LA SUPPRESSION DU PANIER
+==============================================================================*/
 const howMuch = () => {
   let totalPrice = document.getElementById("your_basket");
 
@@ -280,9 +288,19 @@ const howMuch = () => {
   let numberTotalPrice = document.createElement("span");
   numberTotalPrice.setAttribute("id", "result_price");
 
+  /* BOUTON SUPPRIMER PANIER */
+  let deleteAll = document.createElement("button");
+  deleteAll.innerHTML = "Supprimer Panier";
+  deleteAll.addEventListener("click", () => {
+    localStorage.clear(); /* supprime le localstorage au moment du click */
+    putNumberButton(); /* affiche le nombre de produits restant */
+    emptyBasket(); /* affiche votre panier est vide */
+  });
+
   totalPrice.appendChild(divTotalPrice);
   totalPrice.appendChild(titleTotalPrice);
   totalPrice.appendChild(numberTotalPrice);
+  totalPrice.appendChild(deleteAll);
 };
 
 /* CALCULER LE PRIX TOTAL DU PANIER 
@@ -299,18 +317,20 @@ const totalBasket = () => {
   result.innerHTML = numberFormatter(sommeTotal);
 };
 
-/* ENVOIE LE NOMBRE DE PRODUITS AFFICHÉ DANS LE PANIER
------------------------------------------------------*/
+/* ENVOIE DANS LE BOUTON PANIER LE NOMBRE DE PRODUITS SELECTIONNÉ DANS LE PANIER
+-------------------------------------------------------------------------------*/
 const putNumberButton = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
   let numberButton = document.getElementById("number_button");
   numberButton.innerHTML = oldData?.length ? oldData.length : 0;
-  /* affiche le 0 si le array vide du localstorage existe */
+  /* affiche 0 dans le bouton si le array vide du localstorage existe */
 };
 
-/* AFFICHER PANIER VIDE SI LOCALSTORAGE EST VIDE OU INEXISTANT */
+/* AFFICHER LE PANIER EST VIDE SI LOCALSTORAGE EST VIDE OU INEXISTANT
+--------------------------------------------------------------------*/
 const emptyBasket = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
+  /* si la longueur du array est = à 0 ou null */
   if (oldData?.length == 0 || oldData?.length == null) {
     let mainBasket = document.getElementById("main_basket");
     let articleBasket = document.getElementById("your_basket");
