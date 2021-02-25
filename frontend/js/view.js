@@ -177,10 +177,15 @@ const ficheProduit = (myTeddie) => {
 /* ENVOYER DANS LE LOCALSTORAGE LE PRODUIT SELECTIONNÉ
 -----------------------------------------------------*/
 const sendLocal = (myTeddie, productSelectColor) => {
+  // création id pour chaque produit du local storage
+  let id = Math.floor((1 + Math.random()) * 0x1000)
+    .toString(16) // hexadecimal
+    .substring(1);
   // définir les data à récupérer
   let newData = {
     ref: myTeddie,
     couleur: productSelectColor.value,
+    uniqueId: id,
   };
 
   // si rien n'est affiché au début, affiche un array vide
@@ -198,7 +203,9 @@ const sendLocal = (myTeddie, productSelectColor) => {
 
 /* AFFICHER LE PANIER SUR 'panier.html' EN LIEN AVEC LOCALSTORAGE
 ================================================================*/
-const panier = (pan, index) => {
+const panier = (pan) => {
+  // création d'une constante qui récupère l'unique id
+  const idLine = pan.uniqueId;
   /* Lien avec panier.html */
   let basket = document.getElementById("array_basket");
 
@@ -206,7 +213,7 @@ const panier = (pan, index) => {
   let arrayBody = document.createElement("tbody");
 
   let lineBody = document.createElement("tr");
-  lineBody.setAttribute("id", index);
+  lineBody.setAttribute("id", idLine);
 
   let elementPicture = document.createElement("td");
   let picturePlace = document.createElement("img");
@@ -229,8 +236,11 @@ const panier = (pan, index) => {
   let removePlace = document.createElement("button");
   removePlace.innerHTML = "Supprimer";
   removePlace.addEventListener("click", () => {
-    deleteOneProduct(index);
-    let productLine = document.getElementById(index);
+    deleteOneProduct(pan.uniqueId);
+    console.log("------------------------------------");
+    console.log(pan.uniqueId);
+    console.log("------------------------------------");
+    let productLine = document.getElementById(idLine);
     productLine.parentNode.removeChild(productLine);
     totalBasket(); /* affiche la soustraction prix du produit supprimé */
     putNumberButton(); /* affiche le nombre de produits restant */
@@ -259,19 +269,17 @@ const panier = (pan, index) => {
 
 /* SUPPRIMER UN PRODUIT DU PANIER
 --------------------------------*/
-const deleteOneProduct = (index) => {
+const deleteOneProduct = (uniqueId) => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
+
+  let newOlData = oldData.filter((search) => search.uniqueId !== uniqueId);
   console.log("------------------------------------");
-  console.log(index, oldData);
+  console.log(uniqueId);
+  console.log("------------------------------------");
 
-  oldData.splice(index, 1);
+  /* oldData.splice(index, 1); */
 
-  console.log(oldData);
-  console.log(
-    "------------------------------------"
-  ); /* supprime un élément du array à partir de l'index 0 */
-  /*localStorage.clear();*/
-  localStorage.setItem("selection", JSON.stringify(oldData));
+  localStorage.setItem("selection", JSON.stringify(newOlData));
 };
 
 /* CREER LA DIV QUI ACCUEIL LE PRIX TOTAL DU PANIER ET LA SUPPRESSION DU PANIER
@@ -335,6 +343,8 @@ const emptyBasket = () => {
     let mainBasket = document.getElementById("main_basket");
     let articleBasket = document.getElementById("your_basket");
     articleBasket.style.display = "none";
+    let sectionForms = document.getElementById("section_forms");
+    sectionForms.style.display = "none";
     let titleEmptyBasket = document.createElement("h1");
     titleEmptyBasket.textContent = "Votre panier est vide";
     mainBasket.appendChild(titleEmptyBasket);
