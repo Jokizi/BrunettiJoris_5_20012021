@@ -45,36 +45,40 @@
                     </tr>
                 </tbody>-->
             </table>
-            
         </article>
         <section id="section_forms">
             <h2>Passer Commande</h2>
-            <form action="" id="form1" method="">
+            <form action="" id="order_forms" method="">
                 <div class="form_css">
                     <label for="lastName">Nom : </label>
                     <input type="text" name="lastName" id="last_name" placeholder="votre NOM">
+                    <span id="error_last_name"></span>
                 </div>
                 <div class="form_css">
                     <label for="firstName">Prénom : </label>
                     <input type="text" name="firstName" id="first_name" placeholder="votre Prénom">
+                    <span id="error_first_name"></span>
                 </div>
                 <div class="form_css">
                     <label for="adress">Adresse : </label>
                     <input type="text" name="adress" id="adress" placeholder="votre adresse">
+                    <span id="error_adress"></span>
                 </div>
                 <div class="form_css">
                     <label for="city">Ville : </label>
                     <input type="text" name="city" id="city" placeholder="votre ville">
+                    <span id="error_city"></span>
                 </div>
                 <div class="form_css">
                     <label for="email">e-mail : </label>
                     <input type="text" name="email" id="email" placeholder="votre adresse mail">
+                    <span id="error_email"></span>
                 </div>
                 <div class="form_css">
-                    <input type="button" id="check_button" value="Valider Commande">
+                    <input type="submit" id="check_button" value="Valider Commande">
+                    <span id="big_error"></span>
                 </div>
             </form>
-
         </section>
     </main>
     <footer class="bottom_page">

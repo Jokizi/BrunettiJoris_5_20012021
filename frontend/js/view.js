@@ -350,3 +350,85 @@ const emptyBasket = () => {
     mainBasket.appendChild(titleEmptyBasket);
   }
 };
+
+/* RÉGEX INPUTS FORMULAIRE
+-------------------------*/
+
+let checkNameCity = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
+let checkAdress = /
+let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
+
+const orderForms = document.forms["order_forms"];
+
+orderForms.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let inputs = this.document.getElementsByTagName("input");
+  for (let i = 0; i < inputs.length; i++) {
+    if (!inputs[i].value) {
+      const errorInput = document.getElementById("big_error");
+      errorInput.innerHTML = "Veuillez renseigner tous les champs";
+    } else {
+      errorInput.innerHTML = "";
+    }
+  }
+});
+
+orderForms["lastName"].addEventListener("input", (e) => {
+  e.preventDefault();
+  let lastNameInput = this.document.getElementById("last_name");
+  let errorLastName = document.getElementById("error_last_name");
+  let resultCheckLastName = checkNameCity.test(lastNameInput.value);
+  if (!resultCheckLastName) {
+    errorLastName.innerHTML = " Nom probleme";
+  } else {
+    errorLastName.innerHTML = "";
+  }
+});
+
+orderForms["firstName"].addEventListener("input", (e) => {
+  e.preventDefault();
+  let firstNameInput = this.document.getElementById("first_name");
+  let errorFirstName = document.getElementById("error_first_name");
+  let resultCheckFirstName = checkNameCity.test(firstNameInput.value);
+  if (!resultCheckFirstName) {
+    errorFirstName.innerHTML = "Prénom probleme";
+  } else {
+    errorFirstName.innerHTML = "";
+  }
+});
+
+orderForms["adress"].addEventListener("input", (e) => {
+  e.preventDefault();
+  let adressInput = this.document.getElementById("adress");
+  let errorAdress = document.getElementById("error_adress");
+  let resultCheckAdress = checkAdress.test(adressInput.value);
+  if (!resultCheckAdress) {
+    errorAdress.innerHTML = "Adresse prob";
+  } else {
+    errorAdress.innerHTML = "";
+  }
+});
+
+orderForms["city"].addEventListener("input", (e) => {
+  e.preventDefault();
+  let cityInput = this.document.getElementById("city");
+  let errorCity = document.getElementById("error_city");
+  let resultCheckCity = checkNameCity.test(cityInput.value);
+  if (!resultCheckCity) {
+    errorCity.innerHTML = "Ville probleme";
+  } else {
+    errorCity.innerHTML = "";
+  }
+});
+
+orderForms["email"].addEventListener("input", (e) => {
+  e.preventDefault();
+  let emailInput = this.document.getElementById("email");
+  let errorEmail = document.getElementById("error_email");
+  let resultCheckEmail = checkEmail.test(emailInput.value);
+  if (!resultCheckEmail) {
+    errorEmail.innerHTML = "email probleme";
+  } else {
+    errorEmail.innerHTML = "";
+  }
+});
