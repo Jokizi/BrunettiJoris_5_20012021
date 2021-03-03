@@ -353,52 +353,92 @@ const emptyBasket = () => {
 
 /* RÉGEX INPUTS FORMULAIRE
 -------------------------*/
-
-let checkNameCity = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-let checkAdress = /
+let checkName = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
+let checkAdress = /^[ \w]{3,}([A-Za-z]\.)?([ \w]*\#\d+)?(\r\n| )[ \w]{3,},\x20[A-Za-z]{2}\x20\d{5}(-\d{4})?$/;
+let checkCity = /^[a-zA-Z\u0080-\u024F.]+((?:[ -.|'])[a-zA-Z\u0080-\u024F]+)*$/;
 let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
 
 const orderForms = document.forms["order_forms"];
-
 orderForms.addEventListener("submit", (e) => {
   e.preventDefault();
   let inputs = this.document.getElementsByTagName("input");
+  let bigErrorInput = document.getElementById("big_error");
+
   for (let i = 0; i < inputs.length; i++) {
     if (!inputs[i].value) {
-      const errorInput = document.getElementById("big_error");
-      errorInput.innerHTML = "Veuillez renseigner tous les champs";
+      //let bigErrorInput = document.getElementById("big_error");
+      bigErrorInput.innerHTML = "Veuillez renseigner tous les champs";
     } else {
-      errorInput.innerHTML = "";
+      bigErrorInput.innerHTML = "";
     }
   }
 });
 
+const everyInputsCheck = (
+  event,
+  element,
+  errorElement,
+  errorMessage,
+  checkedElement
+) => {
+  event.preventDefault();
+  let elementInput = this.document.getElementById(element);
+  let errorInput = document.getElementById(errorElement);
+  //let resultCheckLastName = checkName.test(lastNameInput.value);
+  if (!checkedElement.test(elementInput.value)) {
+    errorInput.innerHTML = errorMessage;
+  } else {
+    errorInput.innerHTML = "";
+  }
+};
+
 orderForms["lastName"].addEventListener("input", (e) => {
-  e.preventDefault();
+  everyInputsCheck(
+    e,
+    "last_name",
+    "error_last_name",
+    "Nom probleme",
+    checkName
+  );
+  /*e.preventDefault();
   let lastNameInput = this.document.getElementById("last_name");
   let errorLastName = document.getElementById("error_last_name");
-  let resultCheckLastName = checkNameCity.test(lastNameInput.value);
-  if (!resultCheckLastName) {
+  let resultCheckLastName = checkName.test(lastNameInput.value);
+  if (!checkName.test(lastNameInput.value)) {
     errorLastName.innerHTML = " Nom probleme";
   } else {
     errorLastName.innerHTML = "";
-  }
+  }*/
 });
 
 orderForms["firstName"].addEventListener("input", (e) => {
-  e.preventDefault();
+  everyInputsCheck(
+    e,
+    "first_name",
+    "error_first_name",
+    "Prénom probleme",
+    checkName
+  );
+  /*e.preventDefault();
   let firstNameInput = this.document.getElementById("first_name");
   let errorFirstName = document.getElementById("error_first_name");
-  let resultCheckFirstName = checkNameCity.test(firstNameInput.value);
+  let resultCheckFirstName = checkName.test(firstNameInput.value);
   if (!resultCheckFirstName) {
     errorFirstName.innerHTML = "Prénom probleme";
   } else {
     errorFirstName.innerHTML = "";
-  }
+  }*/
 });
 
 orderForms["adress"].addEventListener("input", (e) => {
-  e.preventDefault();
+  everyInputsCheck(
+    e,
+    "adress",
+    "error_adress",
+    "Adresse probleme",
+    checkAdress
+  );
+  /*e.preventDefault();
   let adressInput = this.document.getElementById("adress");
   let errorAdress = document.getElementById("error_adress");
   let resultCheckAdress = checkAdress.test(adressInput.value);
@@ -406,23 +446,25 @@ orderForms["adress"].addEventListener("input", (e) => {
     errorAdress.innerHTML = "Adresse prob";
   } else {
     errorAdress.innerHTML = "";
-  }
+  }*/
 });
 
 orderForms["city"].addEventListener("input", (e) => {
-  e.preventDefault();
+  everyInputsCheck(e, "city", "error_city", "Ville probleme", checkCity);
+  /*e.preventDefault();
   let cityInput = this.document.getElementById("city");
   let errorCity = document.getElementById("error_city");
-  let resultCheckCity = checkNameCity.test(cityInput.value);
+  let resultCheckCity = checkCity.test(cityInput.value);
   if (!resultCheckCity) {
     errorCity.innerHTML = "Ville probleme";
   } else {
     errorCity.innerHTML = "";
-  }
+  }*/
 });
 
 orderForms["email"].addEventListener("input", (e) => {
-  e.preventDefault();
+  everyInputsCheck(e, "email", "error_email", "Email probleme", checkEmail);
+  /*e.preventDefault();
   let emailInput = this.document.getElementById("email");
   let errorEmail = document.getElementById("error_email");
   let resultCheckEmail = checkEmail.test(emailInput.value);
@@ -430,5 +472,5 @@ orderForms["email"].addEventListener("input", (e) => {
     errorEmail.innerHTML = "email probleme";
   } else {
     errorEmail.innerHTML = "";
-  }
+  }*/
 });
