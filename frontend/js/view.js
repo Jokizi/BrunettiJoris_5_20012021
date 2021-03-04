@@ -351,14 +351,18 @@ const emptyBasket = () => {
   }
 };
 
+/*==================FORMULAIRE===========================*/
+
 /* RÉGEX INPUTS FORMULAIRE
 -------------------------*/
 let checkName = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-let checkAdress = /^[ \w]{3,}([A-Za-z]\.)?([ \w]*\#\d+)?(\r\n| )[ \w]{3,},\x20[A-Za-z]{2}\x20\d{5}(-\d{4})?$/;
+let checkAdress = /^([a-zA-Z0-9 _-]+)$/;
 let checkCity = /^[a-zA-Z\u0080-\u024F.]+((?:[ -.|'])[a-zA-Z\u0080-\u024F]+)*$/;
 let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
 
-const orderForms = document.forms["order_forms"];
+/* INPUT SUBMIT "VALIDER LA COMMANDE"
+------------------------------------*/
+const orderForms = document.forms["order_forms"]; // lien avec le formulaire
 orderForms.addEventListener("submit", (e) => {
   e.preventDefault();
   let inputs = this.document.getElementsByTagName("input");
@@ -366,14 +370,18 @@ orderForms.addEventListener("submit", (e) => {
 
   for (let i = 0; i < inputs.length; i++) {
     if (!inputs[i].value) {
-      //let bigErrorInput = document.getElementById("big_error");
       bigErrorInput.innerHTML = "Veuillez renseigner tous les champs";
+      bigErrorInput.style.color = "red";
+      return false;
     } else {
       bigErrorInput.innerHTML = "";
+      return true;
     }
   }
 });
 
+/* CHECK REGEX DE TOUS LES INPUTS VIA LA FACTORISATION
+-----------------------------------------------------*/
 const everyInputsCheck = (
   event,
   element,
@@ -384,93 +392,72 @@ const everyInputsCheck = (
   event.preventDefault();
   let elementInput = this.document.getElementById(element);
   let errorInput = document.getElementById(errorElement);
+
   //let resultCheckLastName = checkName.test(lastNameInput.value);
-  if (!checkedElement.test(elementInput.value)) {
+  if (!checkedElement.test(elementInput.value.trim())) {
     errorInput.innerHTML = errorMessage;
+    errorInput.style.color = "blue";
   } else {
     errorInput.innerHTML = "";
   }
 };
 
+/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+-----------------------------------------------------------*/
 orderForms["lastName"].addEventListener("input", (e) => {
   everyInputsCheck(
     e,
     "last_name",
     "error_last_name",
-    "Nom probleme",
+    "Renseigner le nom correctement",
     checkName
   );
-  /*e.preventDefault();
-  let lastNameInput = this.document.getElementById("last_name");
-  let errorLastName = document.getElementById("error_last_name");
-  let resultCheckLastName = checkName.test(lastNameInput.value);
-  if (!checkName.test(lastNameInput.value)) {
-    errorLastName.innerHTML = " Nom probleme";
-  } else {
-    errorLastName.innerHTML = "";
-  }*/
 });
 
+/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+-----------------------------------------------------------*/
 orderForms["firstName"].addEventListener("input", (e) => {
   everyInputsCheck(
     e,
     "first_name",
     "error_first_name",
-    "Prénom probleme",
+    "Renseigner le prénom correctement",
     checkName
   );
-  /*e.preventDefault();
-  let firstNameInput = this.document.getElementById("first_name");
-  let errorFirstName = document.getElementById("error_first_name");
-  let resultCheckFirstName = checkName.test(firstNameInput.value);
-  if (!resultCheckFirstName) {
-    errorFirstName.innerHTML = "Prénom probleme";
-  } else {
-    errorFirstName.innerHTML = "";
-  }*/
 });
 
+/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+-----------------------------------------------------------*/
 orderForms["adress"].addEventListener("input", (e) => {
   everyInputsCheck(
     e,
     "adress",
     "error_adress",
-    "Adresse probleme",
+    "Renseigner l'adresse correctement",
     checkAdress
   );
-  /*e.preventDefault();
-  let adressInput = this.document.getElementById("adress");
-  let errorAdress = document.getElementById("error_adress");
-  let resultCheckAdress = checkAdress.test(adressInput.value);
-  if (!resultCheckAdress) {
-    errorAdress.innerHTML = "Adresse prob";
-  } else {
-    errorAdress.innerHTML = "";
-  }*/
 });
 
+/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+-----------------------------------------------------------*/
 orderForms["city"].addEventListener("input", (e) => {
-  everyInputsCheck(e, "city", "error_city", "Ville probleme", checkCity);
-  /*e.preventDefault();
-  let cityInput = this.document.getElementById("city");
-  let errorCity = document.getElementById("error_city");
-  let resultCheckCity = checkCity.test(cityInput.value);
-  if (!resultCheckCity) {
-    errorCity.innerHTML = "Ville probleme";
-  } else {
-    errorCity.innerHTML = "";
-  }*/
+  everyInputsCheck(
+    e,
+    "city",
+    "error_city",
+    "Renseigner la ville correctement",
+    checkCity
+  );
 });
 
+/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+-----------------------------------------------------------*/
 orderForms["email"].addEventListener("input", (e) => {
-  everyInputsCheck(e, "email", "error_email", "Email probleme", checkEmail);
-  /*e.preventDefault();
-  let emailInput = this.document.getElementById("email");
-  let errorEmail = document.getElementById("error_email");
-  let resultCheckEmail = checkEmail.test(emailInput.value);
-  if (!resultCheckEmail) {
-    errorEmail.innerHTML = "email probleme";
-  } else {
-    errorEmail.innerHTML = "";
-  }*/
+  everyInputsCheck(
+    e,
+    "email",
+    "error_email",
+    "Renseigner une adresse mail valide",
+    checkEmail
+  );
 });
