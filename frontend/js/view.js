@@ -189,12 +189,18 @@ const sendLocal = (myTeddie, productSelectColor) => {
   };
 
   // si rien n'est affiché au début, affiche un array vide
-  if (localStorage.getItem("selection") == null) {
+  console.log("--------------selection----------------------");
+  console.log(localStorage.getItem("selection"));
+  console.log("------------------------------------");
+  if (localStorage.getItem("selection") === null) {
     localStorage.setItem("selection", "[]");
   }
 
   // changer les anciennes data et les remplacer par les nouvelles
   let oldData = JSON.parse(localStorage.getItem("selection"));
+  console.log("--------------olddata----------------------");
+  console.log(oldData);
+  console.log("------------------------------------");
   oldData.push(newData);
 
   // sauvegarder les anciennes et les nouvelles data dans localstorage
@@ -363,22 +369,53 @@ let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,
 /* INPUT SUBMIT "VALIDER LA COMMANDE"
 ------------------------------------*/
 const orderForms = document.forms["order_forms"]; // lien avec le formulaire
-orderForms.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let inputs = this.document.getElementsByTagName("input");
-  let bigErrorInput = document.getElementById("big_error");
+console.log("------------------------------------");
+console.log(orderForms);
+console.log("------------------------------------");
 
-  for (let i = 0; i < inputs.length; i++) {
-    if (!inputs[i].value) {
-      bigErrorInput.innerHTML = "Veuillez renseigner tous les champs";
-      bigErrorInput.style.color = "red";
-      return false;
-    } else {
-      bigErrorInput.innerHTML = "";
-      return true;
+if (orderForms) {
+  orderForms.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let inputs = this.document.getElementsByTagName("input");
+    let bigErrorInput = document.getElementById("big_error");
+
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].value) {
+        bigErrorInput.innerHTML = "Veuillez renseigner tous les champs";
+        bigErrorInput.style.color = "red";
+        return false;
+      } else {
+        bigErrorInput.innerHTML = "";
+        alert("Vos informations sont envoyés");
+        let contact = {
+          firstName: inputs["firstName"].value,
+          lastName: inputs["lastName"].value,
+          address: inputs["adress"].value,
+          city: inputs["city"].value,
+          email: inputs["email"].value,
+        };
+        send(contact);
+        return true;
+      }
     }
-  }
-});
+  });
+}
+
+const send = (contact) => {
+  let oldData = JSON.parse(localStorage.getItem("selection"));
+  console.log("-------------oldDAAAAA406-----------------------");
+  console.log(oldData);
+  console.log("------------------------------------");
+  let products = [];
+  oldData.forEach((product) => {
+    products.push(product.ref._id);
+  });
+  let data = {
+    contact,
+    products,
+  };
+  methodPost(data);
+};
 
 /* CHECK REGEX DE TOUS LES INPUTS VIA LA FACTORISATION
 -----------------------------------------------------*/
@@ -404,60 +441,104 @@ const everyInputsCheck = (
 
 /* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
 -----------------------------------------------------------*/
-orderForms["lastName"].addEventListener("input", (e) => {
-  everyInputsCheck(
-    e,
-    "last_name",
-    "error_last_name",
-    "Renseigner le nom correctement",
-    checkName
-  );
-});
-
-/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+if (orderForms) {
+  orderForms["lastName"].addEventListener("input", (e) => {
+    everyInputsCheck(
+      e,
+      "last_name",
+      "error_last_name",
+      "Renseigner le nom correctement",
+      checkName
+    );
+  });
+  /* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
 -----------------------------------------------------------*/
-orderForms["firstName"].addEventListener("input", (e) => {
-  everyInputsCheck(
-    e,
-    "first_name",
-    "error_first_name",
-    "Renseigner le prénom correctement",
-    checkName
-  );
-});
+  orderForms["firstName"].addEventListener("input", (e) => {
+    everyInputsCheck(
+      e,
+      "first_name",
+      "error_first_name",
+      "Renseigner le prénom correctement",
+      checkName
+    );
+  });
 
-/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+  /* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
 -----------------------------------------------------------*/
-orderForms["adress"].addEventListener("input", (e) => {
-  everyInputsCheck(
-    e,
-    "adress",
-    "error_adress",
-    "Renseigner l'adresse correctement",
-    checkAdress
-  );
-});
+  orderForms["adress"].addEventListener("input", (e) => {
+    everyInputsCheck(
+      e,
+      "adress",
+      "error_adress",
+      "Renseigner l'adresse correctement",
+      checkAdress
+    );
+  });
 
-/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+  /* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
 -----------------------------------------------------------*/
-orderForms["city"].addEventListener("input", (e) => {
-  everyInputsCheck(
-    e,
-    "city",
-    "error_city",
-    "Renseigner la ville correctement",
-    checkCity
-  );
-});
+  orderForms["city"].addEventListener("input", (e) => {
+    everyInputsCheck(
+      e,
+      "city",
+      "error_city",
+      "Renseigner la ville correctement",
+      checkCity
+    );
+  });
 
-/* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
+  /* ASSIGNATION DE LA FONCTION CHECK REGEX À L'INPUT CONCERNÉ
 -----------------------------------------------------------*/
-orderForms["email"].addEventListener("input", (e) => {
-  everyInputsCheck(
-    e,
-    "email",
-    "error_email",
-    "Renseigner une adresse mail valide",
-    checkEmail
-  );
-});
+  orderForms["email"].addEventListener("input", (e) => {
+    everyInputsCheck(
+      e,
+      "email",
+      "error_email",
+      "Renseigner une adresse mail valide",
+      checkEmail
+    );
+  });
+}
+
+const yourOrder = (product) => {
+  /* Lien avec confirmation.html */
+  let orderTable = document.getElementById("array_order");
+
+  /* Créer l'architecture html */
+  let orderTableBody = document.createElement("tbody");
+
+  let orderLineBody = document.createElement("tr");
+
+  let elementOrderPicture = document.createElement("td");
+  let orderPicturePlace = document.createElement("img");
+  orderPicturePlace.setAttribute("src", product.imageUrl);
+  orderPicturePlace.setAttribute("class", "order_picture");
+
+  let elementOrderName = document.createElement("td");
+  let orderNamePlace = document.createElement("h2");
+  orderNamePlace.textContent = product.name;
+
+  let elementOrderColor = document.createElement("td");
+  let orderColorPlace = document.createElement("span");
+  orderColorPlace.textContent = product.couleur;
+
+  let elementOrderPrice = document.createElement("td");
+  let orderPricePlace = document.createElement("span");
+  orderPricePlace.textContent = numberFormatter(product.price);
+
+  /* Implémenter dans le html */
+  orderTable.appendChild(orderTableBody);
+  orderTableBody.appendChild(orderLineBody);
+
+  orderLineBody.appendChild(elementOrderPicture);
+  elementOrderPicture.appendChild(orderPicturePlace);
+
+  orderLineBody.appendChild(elementOrderName);
+  elementOrderName.appendChild(orderNamePlace);
+
+  orderLineBody.appendChild(elementOrderColor);
+  elementOrderColor.appendChild(orderColorPlace);
+
+  orderLineBody.appendChild(elementOrderPrice);
+  elementOrderPrice.appendChild(orderPricePlace);
+};
