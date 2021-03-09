@@ -403,6 +403,7 @@ if (orderForms) {
 
 const send = (contact) => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
+
   console.log("-------------oldDAAAAA406-----------------------");
   console.log(oldData);
   console.log("------------------------------------");
@@ -502,6 +503,7 @@ if (orderForms) {
 
 const yourOrder = (product) => {
   /* Lien avec confirmation.html */
+
   let orderTable = document.getElementById("array_order");
 
   /* Créer l'architecture html */
@@ -541,4 +543,10 @@ const yourOrder = (product) => {
 
   orderLineBody.appendChild(elementOrderPrice);
   elementOrderPrice.appendChild(orderPricePlace);
+};
+
+const orderId = (newLocalStorage) => {
+  const orderReference = document.getElementById("order_reference");
+  orderReference.textContent = newLocalStorage.orderId;
+  orderReference.style.color = "blue";
 };
