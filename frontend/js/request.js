@@ -10,11 +10,13 @@ const request = async (url) => {
   }
 };
 
+/* Envoi des données du formulaire et de la commande dans un nouveau localStorage
+================================================================================*/
 const methodPost = (data) => {
   console.log("------data------------------------------");
   console.log(data);
   console.log("------------------------------------");
-  const request2 = fetch("http://localhost:3000/api/teddies/order", {
+  const requestOrder = fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -23,7 +25,7 @@ const methodPost = (data) => {
   });
 
   try {
-    request2.then((response) => {
+    requestOrder.then((response) => {
       const ress = response.json();
       ress.then((notreResultat) => {
         console.log("----------------resultat--------------------");

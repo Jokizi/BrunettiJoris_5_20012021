@@ -14,6 +14,8 @@ const productsOrderSelect = () => {
     alert("Cette page n'existe pas");
     window.location = "./index.html";
   }
+  howMuchOrder();
+  totalOrder(newLocalStorage);
   orderId(newLocalStorage);
 };
 productsOrderSelect();

@@ -312,9 +312,9 @@ const howMuch = () => {
   });
 
   totalPrice.appendChild(divTotalPrice);
-  totalPrice.appendChild(titleTotalPrice);
-  totalPrice.appendChild(numberTotalPrice);
-  totalPrice.appendChild(deleteAll);
+  divTotalPrice.appendChild(titleTotalPrice);
+  divTotalPrice.appendChild(numberTotalPrice);
+  divTotalPrice.appendChild(deleteAll);
 };
 
 /* CALCULER LE PRIX TOTAL DU PANIER 
@@ -545,8 +545,37 @@ const yourOrder = (product) => {
   elementOrderPrice.appendChild(orderPricePlace);
 };
 
+/* Injecter l'order Id dans le span pour la confirmation de commande
+-------------------------------------------------------------------*/
 const orderId = (newLocalStorage) => {
   const orderReference = document.getElementById("order_reference");
   orderReference.textContent = newLocalStorage.orderId;
   orderReference.style.color = "blue";
+};
+
+const howMuchOrder = () => {
+  let totalPriceOrder = document.getElementById("order_products");
+
+  let divTotalPriceOrder = document.createElement("div");
+  divTotalPriceOrder.setAttribute("id", "div_total_order");
+
+  let titleTotalPriceOrder = document.createElement("span");
+  titleTotalPriceOrder.textContent = "Total: ";
+
+  let numberTotalPriceOrder = document.createElement("span");
+  numberTotalPriceOrder.setAttribute("id", "result_price_order");
+
+  totalPriceOrder.appendChild(divTotalPriceOrder);
+  divTotalPriceOrder.appendChild(titleTotalPriceOrder);
+  divTotalPriceOrder.appendChild(numberTotalPriceOrder);
+};
+
+const totalOrder = (newLocalStorage) => {
+  let sommeOrder = 0;
+  let resultOrder = document.getElementById("result_price_order");
+
+  newLocalStorage.products.forEach((pan) => {
+    sommeOrder += pan.price;
+  });
+  resultOrder.innerHTML = numberFormatter(sommeOrder);
 };
