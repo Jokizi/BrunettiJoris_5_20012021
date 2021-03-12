@@ -122,6 +122,7 @@ const ficheProduit = (myTeddie) => {
   productPutBasket.setAttribute("id", "ajout");
   productPutBasket.addEventListener("click", () => {
     sendLocal(myTeddie, productSelectColor);
+    alert("Ce produit a été ajouté à votre panier");
     putNumberButton();
   });
 
@@ -240,6 +241,7 @@ const panier = (pan) => {
 
   let elementRemove = document.createElement("td");
   let removePlace = document.createElement("button");
+  removePlace.setAttribute("class", "remove_one");
   removePlace.innerHTML = "Supprimer";
   removePlace.addEventListener("click", () => {
     deleteOneProduct(pan.uniqueId);
@@ -304,6 +306,7 @@ const howMuch = () => {
 
   /* BOUTON SUPPRIMER PANIER */
   let deleteAll = document.createElement("button");
+  deleteAll.setAttribute("class", "remove_all");
   deleteAll.innerHTML = "Supprimer Panier";
   deleteAll.addEventListener("click", () => {
     localStorage.clear(); /* supprime le localstorage au moment du click */
