@@ -278,6 +278,13 @@ html {
   align-items: center;
 }
 
+h1 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 2em;
+  font-style: italic;
+}
+
 .teddie {
   display: flex;
   flex-direction: column;
@@ -325,9 +332,12 @@ html {
   border-radius: 1em;
   border: solid 2px #323033;
 }
-
+.teddie_price {
+  margin-top: 0.5em;
+}
 .teddie_details {
-  font-size: 0.7em;
+  margin-top: 1em;
+  font-size: 0.5em;
   font-weight: bold;
   display: flex;
   flex-direction: row;
@@ -336,7 +346,7 @@ html {
   cursor: pointer;
   padding: 1em 1em 1em 1em;
   border-radius: 1em 1em 1em 1em;
-  border: 2px solid var(--tertiary);
+  border: 1px solid var(--tertiary);
   box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
   background: -linear-gradient(
     top,
@@ -378,6 +388,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-items: center;
+  justify-content: space-evenly;
   width: 85%;
   background: -linear-gradient(
     top,
@@ -391,7 +402,7 @@ html {
     var(--tertiary),
     var(--primary)
   );
-  height: 35em;
+  height: 43em;
   margin-top: 2em;
   margin-bottom: 2em;
   padding-left: 5%;
@@ -404,16 +415,18 @@ html {
 .box_picture img {
   object-fit: fill;
   width: 100%;
-  height: 12em;
+  height: 15em;
   border-radius: 1em;
   justify-items: center;
   border: solid 2px #323033;
 }
 
 .box_text {
+  height: 20em;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 
 .product_basket {
@@ -455,35 +468,269 @@ html {
 /* /produit.html
 +++++++++++++++*/
 
-/* <FOOTER>
-==========*/
-.bottom_page {
-  background-color: var(--primary);
-  height: 10em;
-}
-/* </FOOTER>
-========== */
-
 /* page 'panier.html' photos */
+
+.basket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .picture_basket {
   width: 3em;
   height: 3em;
 }
 
 .remove_one {
+  font-size: 0.5em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  border-radius: 1em 1em 1em 1em;
+  border: 1px solid var(--tertiary);
+  box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+}
+
+.remove_one:hover {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+}
+
+.remove_one:active {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+  box-shadow: none;
 }
 
 .remove_all {
+  margin-top: 2em;
+  font-size: 0.6em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
+  padding: 0.8em 0.8em 0.8em 0.8em;
+  border-radius: 1em 1em 1em 1em;
+  border: 1px solid var(--tertiary);
+  box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+}
+
+.remove_all:hover {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+}
+
+.remove_all:active {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+  box-shadow: none;
 }
 
 #check_button {
+  font-size: 0.8em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
+  padding: 1em 1em 1em 1em;
+  border-radius: 1em 1em 1em 1em;
+  border: 1px solid var(--tertiary);
+  box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
+  background: -linear-gradient(
+    top,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--secondary),
+    var(--tertiary),
+    var(--primary)
+  );
 }
+
+#check_button:hover {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+}
+
+#check_button:active {
+  -webkit-filter: brightness(120%);
+  filter: brightness(120%);
+  box-shadow: none;
+}
+
+#array_basket {
+  width: 90%;
+  border: 2px solid;
+}
+
+.line_array {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 0.5px solid;
+}
+
+.line_array h2 {
+  font-size: 1em;
+}
+
+#div_total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+#div_total span {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #a62cd7;
+}
+
+#section_forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+#section_forms h2 {
+  font-size: 1.7em;
+  font-style: italic;
+}
+
+#order_forms {
+  width: 90%;
+  height: 40em;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.form_css {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_form {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  cursor: pointer;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  border-radius: 1em 1em 1em 1em;
+  border: 1px solid var(--tertiary);
+  box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
+}
+
 /* page 'confirmation.html' photos */
+#order_summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
 .order_picture {
   width: 3em;
   height: 3em;
 }
+
+.div_recap {
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  height: 18em;
+  border: 2px solid;
+  margin-bottom: 2em;
+}
+
+.div_recap h2 {
+  margin-bottom: 1em;
+}
+
+#order_products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirm_array {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 90%;
+  border: 2px solid;
+}
+
+#array_order tr {
+  display: flex;
+}
+
+#div_total_order {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #a62cd7;
+}
+
+/* <FOOTER>
+==========*/
+.bottom_page {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary);
+  height: 10em;
+  margin-top: 3em;
+}
+
+.bottom_page p {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+/* </FOOTER>
+========== */

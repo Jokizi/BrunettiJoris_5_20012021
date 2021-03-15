@@ -221,6 +221,7 @@ const panier = (pan) => {
 
   let lineBody = document.createElement("tr");
   lineBody.setAttribute("id", idLine);
+  lineBody.setAttribute("class", "line_array");
 
   let elementPicture = document.createElement("td");
   let picturePlace = document.createElement("img");
@@ -510,9 +511,9 @@ const yourOrder = (product) => {
   let orderTable = document.getElementById("array_order");
 
   /* Créer l'architecture html */
-  let orderTableBody = document.createElement("tbody");
 
   let orderLineBody = document.createElement("tr");
+  orderLineBody.setAttribute("class", "line_array");
 
   let elementOrderPicture = document.createElement("td");
   let orderPicturePlace = document.createElement("img");
@@ -532,8 +533,7 @@ const yourOrder = (product) => {
   orderPricePlace.textContent = numberFormatter(product.price);
 
   /* Implémenter dans le html */
-  orderTable.appendChild(orderTableBody);
-  orderTableBody.appendChild(orderLineBody);
+  orderTable.appendChild(orderLineBody);
 
   orderLineBody.appendChild(elementOrderPicture);
   elementOrderPicture.appendChild(orderPicturePlace);
