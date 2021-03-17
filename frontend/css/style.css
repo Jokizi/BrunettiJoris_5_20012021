@@ -316,7 +316,9 @@ h1 {
 .teddie:active {
   box-shadow: none;
 }
-
+.teddie h2 {
+  color: #f3e9f1;
+}
 .teddie a {
   text-decoration: none;
   color: black;
@@ -382,8 +384,12 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
+.file h2 {
+  color: #f3e9f1;
+}
 .product_file {
   display: flex;
   flex-direction: column;

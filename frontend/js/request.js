@@ -12,6 +12,7 @@ const request = async (url) => {
 
 /* Envoi des données du formulaire et de la commande dans un nouveau localStorage
 ================================================================================*/
+// TEST 7
 const methodPost = (data) => {
   console.log("------data------------------------------");
   console.log(data);

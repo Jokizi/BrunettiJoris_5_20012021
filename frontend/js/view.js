@@ -66,6 +66,7 @@ const afficheProduit = (produit) => {
 
 /* AFFICHER UN PRODUIT SUR 'produit.html' GRÂCE À SON "id"
 =========================================================*/
+// TEST 1 & 2
 const ficheProduit = (myTeddie) => {
   /* Lien avec produit.html */
   let title = document.getElementById("title_product_file");
@@ -177,6 +178,7 @@ const ficheProduit = (myTeddie) => {
 
 /* ENVOYER DANS LE LOCALSTORAGE LE PRODUIT SELECTIONNÉ
 -----------------------------------------------------*/
+// TEST 3
 const sendLocal = (myTeddie, productSelectColor) => {
   // création id pour chaque produit du local storage
   let id = Math.floor((1 + Math.random()) * 0x1000)
@@ -210,6 +212,7 @@ const sendLocal = (myTeddie, productSelectColor) => {
 
 /* AFFICHER LE PANIER SUR 'panier.html' EN LIEN AVEC LOCALSTORAGE
 ================================================================*/
+// TEST 4
 const panier = (pan) => {
   // création d'une constante qui récupère l'unique id
   const idLine = pan.uniqueId;
@@ -293,6 +296,7 @@ const deleteOneProduct = (uniqueId) => {
 
 /* CREER LA DIV QUI ACCUEIL LE PRIX TOTAL DU PANIER ET LA SUPPRESSION DU PANIER
 ==============================================================================*/
+// TEST 5
 const howMuch = () => {
   let totalPrice = document.getElementById("your_basket");
 
@@ -337,6 +341,7 @@ const totalBasket = () => {
 
 /* ENVOIE DANS LE BOUTON PANIER LE NOMBRE DE PRODUITS SELECTIONNÉ DANS LE PANIER
 -------------------------------------------------------------------------------*/
+// TEST 10
 const putNumberButton = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
   let numberButton = document.getElementById("number_button");
@@ -346,6 +351,7 @@ const putNumberButton = () => {
 
 /* AFFICHER LE PANIER EST VIDE SI LOCALSTORAGE EST VIDE OU INEXISTANT
 --------------------------------------------------------------------*/
+// TEST 8
 const emptyBasket = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
   /* si la longueur du array est = à 0 ou null */
@@ -372,6 +378,7 @@ let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,
 
 /* INPUT SUBMIT "VALIDER LA COMMANDE"
 ------------------------------------*/
+// TEST 7
 const orderForms = document.forms["order_forms"]; // lien avec le formulaire
 console.log("------------------------------------");
 console.log(orderForms);
@@ -424,6 +431,7 @@ const send = (contact) => {
 
 /* CHECK REGEX DE TOUS LES INPUTS VIA LA FACTORISATION
 -----------------------------------------------------*/
+// TEST 6
 const everyInputsCheck = (
   event,
   element,

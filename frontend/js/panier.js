@@ -1,5 +1,6 @@
 /* RÉCUPÈRE L'ENSEMBLE DES PRODUITS DU LOCALSTORAGE
 ==================================================*/
+// TEST 4
 const getData = () => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
   oldData?.length &&
