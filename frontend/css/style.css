@@ -474,7 +474,8 @@ h1 {
 /* /produit.html
 +++++++++++++++*/
 
-/* page 'panier.html' photos */
+/* page panier.html
++++++++++++++++++++*/
 
 .basket {
   display: flex;
@@ -670,8 +671,17 @@ h1 {
   border: 1px solid var(--tertiary);
   box-shadow: 0.2em 0.2em 0.2em 0.2em #323033;
 }
+/* /page panier.html
+++++++++++++++++++++*/
 
-/* page 'confirmation.html' photos */
+/* page confirmation.html
+++++++++++++++++++++++++*/
+
+#main_confirm h1 {
+  display: flex;
+  justify-content: center;
+}
+
 #order_summary {
   display: flex;
   flex-direction: column;
@@ -723,6 +733,8 @@ h1 {
   font-weight: bold;
   color: #a62cd7;
 }
+/* /page confirmation.html
++++++++++++++++++++++++++*/
 
 /* <FOOTER>
 ==========*/
@@ -740,3 +752,44 @@ h1 {
 }
 /* </FOOTER>
 ========== */
+
+@media screen and (min-width: 996px) {
+  /* index.html 
+++++++++++++++*/
+  .teddies {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .teddies h1 {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .teddie {
+    width: 25%;
+    height: 20em;
+    margin: 1.5em;
+  }
+
+  .teddie img {
+    height: 11em;
+  }
+  /* produit.html
+++++++++++++++*/
+  .product_file {
+    width: 60%;
+    height: 43em;
+  }
+
+  .box_picture img {
+    width: 100%;
+    height: 17em;
+  }
+
+  .div_recap {
+    height: 13em;
+  }
+}
