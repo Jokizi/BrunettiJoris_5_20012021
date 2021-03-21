@@ -14,9 +14,6 @@ const request = async (url) => {
 ================================================================================*/
 // TEST 7
 const methodPost = (data) => {
-  console.log("------data------------------------------");
-  console.log(data);
-  console.log("------------------------------------");
   const requestOrder = fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     body: JSON.stringify(data),

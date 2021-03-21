@@ -192,18 +192,12 @@ const sendLocal = (myTeddie, productSelectColor) => {
   };
 
   // si rien n'est affiché au début, affiche un array vide
-  console.log("--------------selection----------------------");
-  console.log(localStorage.getItem("selection"));
-  console.log("------------------------------------");
   if (localStorage.getItem("selection") === null) {
     localStorage.setItem("selection", "[]");
   }
 
   // changer les anciennes data et les remplacer par les nouvelles
   let oldData = JSON.parse(localStorage.getItem("selection"));
-  console.log("--------------olddata----------------------");
-  console.log(oldData);
-  console.log("------------------------------------");
   oldData.push(newData);
 
   // sauvegarder les anciennes et les nouvelles data dans localstorage
@@ -249,9 +243,6 @@ const panier = (pan) => {
   removePlace.innerHTML = "Supprimer";
   removePlace.addEventListener("click", () => {
     deleteOneProduct(pan.uniqueId);
-    console.log("------------------------------------");
-    console.log(pan.uniqueId);
-    console.log("------------------------------------");
     let productLine = document.getElementById(idLine);
     productLine.parentNode.removeChild(productLine);
     totalBasket(); /* affiche la soustraction prix du produit supprimé */
@@ -285,9 +276,6 @@ const deleteOneProduct = (uniqueId) => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
 
   let newOlData = oldData.filter((search) => search.uniqueId !== uniqueId);
-  console.log("------------------------------------");
-  console.log(uniqueId);
-  console.log("------------------------------------");
 
   /* oldData.splice(index, 1); */
 
@@ -380,9 +368,6 @@ let checkEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,
 ------------------------------------*/
 // TEST 7
 const orderForms = document.forms["order_forms"]; // lien avec le formulaire
-console.log("------------------------------------");
-console.log(orderForms);
-console.log("------------------------------------");
 
 if (orderForms) {
   orderForms.addEventListener("submit", (e) => {
@@ -415,9 +400,6 @@ if (orderForms) {
 const send = (contact) => {
   let oldData = JSON.parse(localStorage.getItem("selection"));
 
-  console.log("-------------oldDAAAAA406-----------------------");
-  console.log(oldData);
-  console.log("------------------------------------");
   let products = [];
   oldData.forEach((product) => {
     products.push(product.ref._id);
